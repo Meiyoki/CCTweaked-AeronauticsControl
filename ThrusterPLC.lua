@@ -26,7 +26,7 @@ for i,v in ipairs(thrusters) do
   v.setControlMode("computer")
 end
 local registrationPayload = { location = #location }
-wirelessNIC.transmit(2000,locs[location],registration Payload)
+wirelessNIC.transmit(2000,locs[location],registrationPayload)
 
 local errorState = false
 
