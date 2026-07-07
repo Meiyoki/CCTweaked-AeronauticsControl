@@ -3,6 +3,9 @@ local wirelessNIC = peripheral.find("modem", function(name, modem)
 )
 wirelessNIC.open(2001)
 local relays = {peripheral.find("redstone_relay")}
+table.sort(relays, function(left,right)
+    return peripheral.getName(left)<peripheral.getName(right)
+end)
 local forwardSensor = relays[1]
 local rightSensor = relays[2]
 local backSensor = relays[3]
@@ -11,14 +14,16 @@ local throttleSensor = relays[5]
 local gyro = peripheral.find("gimbal_sensor")
 
 local verticalThrust = 0
-
-while true do
-    if math.abs(gyro.getAngles()[1]) > 15 or math.abs(gyro.getAngles()[2]) < 15 then
+local errorState = false;
+    
+while not errorState do
+    if math.abs(gyro.getAngles()[1]) > 15 or math.abs(gyro.getAngles()[2]) > 15 then
         wirelessNIC.transmit(2002, 2001, 0)
         wirelessNIC.transmit(2003, 2001, 0)
         wirelessNIC.transmit(2004, 2001, 0)
         wirelessNIC.transmit(2005, 2001, 0)
         wirelessNIC.transmit(2006, 2001, 0)
+        errorState = true;
     else
         wirelessNIC.transmit(2002, 2001, forwardSensor.getAnalogueInput("front"))
         wirelessNIC.transmit(2003, 2001, rightSensor.getAnalogueInput("right"))
@@ -29,5 +34,6 @@ while true do
             verticalThrust = 0 - verticalThrust
         end
         wirelessNIC.transmit(2006, 2001, verticalThrust)
+        sleep(0.5)
     end
 end
