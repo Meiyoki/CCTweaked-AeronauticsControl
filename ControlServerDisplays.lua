@@ -12,7 +12,7 @@ local gyro = peripheral.find("gimbal_sensor")
 local displays = {peripheral.find("monitor")}
 table.sort(displays, function(left,right) 
     return left.getSize() < right.getSize()
-)
+    end)
 local largeDisplay1 = displays[3]
 local largeDisplay2 = displays[2]
 local smallDisplay = displays[1]
