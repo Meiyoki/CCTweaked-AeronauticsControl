@@ -1,6 +1,6 @@
 local wirelessNIC = peripheral.find("modem", function(name, modem)
     return modem.isWireless()
-)
+end)
 wirelessNIC.open(2001)
 local relays = {peripheral.find("redstone_relay")}
 table.sort(relays, function(left,right)
