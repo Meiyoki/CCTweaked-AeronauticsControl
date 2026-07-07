@@ -4,17 +4,17 @@ end)
 local thrusters = {peripheral.find("thruster")}
 local locs =
 {
-  ["front"] = 2002,
-  ["right"] = 2003,
-  ["back"] = 2004,
-  ["left"] = 2005,
-  ["vertical"] = 2006,
+  "fore" = 2002,
+  "starboard" = 2003,
+  "aft" = 2004,
+  "port" = 2005,
+  "vertical" = 2006,
 }
 local validLoc = false
 local location = ""
 while not validLoc do
-  io.write("Please enter the thruster group location (front/back/left/right/vertical)")
-  location = io.read()
+  io.write("Please enter the thruster group location (fore/aft/port/starboard/vertical)")
+  location = string.lower(io.read())
   if(locs[location]) then
     validLoc = true
   else
@@ -25,7 +25,8 @@ wirelessNIC.open(locs[location])
 for i,v in ipairs(thrusters) do
   v.setControlMode("computer")
 end
-wirelessNIC.transmit(2001,locs[location],location .. "-" .. #location)
+local registrationPayload = { location = #location }
+wirelessNIC.transmit(2000,locs[location],registration Payload)
 
 local errorState = false
 
