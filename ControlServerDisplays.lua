@@ -22,7 +22,7 @@ while true do
     largeDisplay1.setCursorPos(1,1)
     largeDisplay1.write("Altitude Thrust: " .. throttleSensor.getAnalogueInput("back"))
     largeDisplay1.setCursorPos(1,2)
-    largeDisplay1.write("Altitude Reverse: " .. (throttleSensor.getAnalogueInput("top") == 15))
+    largeDisplay1.write("Altitude Reverse: " .. tostring(throttleSensor.getAnalogueInput("top") == 15))
     largeDisplay1.setCursorPos(1,3)
     largeDisplay1.write("Forward Thrust: " .. forwardSensor.getAnalogueInput("front"))
     largeDisplay1.setCursorPos(1,4)
