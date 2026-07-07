@@ -1,10 +1,7 @@
-local wiredNIC = peripheral.find("modem, function(name, modem)
-    return !modem.isWireless()
-)
-local wirelessNIC = peripheral.find("modem, function(name, modem)
-    return !modem.isWireless()
-)
 local relays = {peripheral.find("redstone_relay")}
+table.sort(relays, function(left,right)
+    return peripheral.getName(left)<peripheral.getName(right)
+end)
 local forwardSensor = relays[1]
 local rightSensor = relays[2]
 local backSensor = relays[3]
@@ -25,12 +22,18 @@ while true do
   smallDisplay.clear()
   smallDisplay.setCursorPos(1,1)
   largeDisplay.write("Altitude Thrust: " .. throttleSensor.getAnalogueInput("back"))
-  largeDisplay.write("Altitude Reverse: " .. throttleSensor.getAnalogueInput("top"))
-  largeDisplay.write("Forward Thrust: " .. forward.getAnalogueInput("front"))
+  largeDisplay.setCursorPos(1,2)
+  largeDisplay.write("Altitude Reverse: " .. (throttleSensor.getAnalogueInput("top") == 15))
+  largeDisplay.setCursorPos(1,3)
+  largeDisplay.write("Forward Thrust: " .. forwardSensor.getAnalogueInput("front"))
+  largeDisplay.setCursorPos(1,4)
   largeDisplay.write("Backward Thrust: " .. backSensor.getAnalogueInput("back"))
+  largeDisplay.setCursorPos(1,5)
   largeDisplay.write("Left Thrust: " .. leftSensor.getAnalogueInput("left"))
+  largeDisplay.setCursorPos(1,6)
   largeDisplay.write("Right Thrust: " .. rightSensor.getAnalogueInput("right"))
   smallDisplay.write("Altitude: " .. altimeter.getHeight())
+  smallDisplay.setCursorPos(1,2)
   smallDisplay.write("Angles: " .. (math.floor(gyro.getAngles()[1]*10^4)/10^4) .. ", " .. (math.floor(gyro.getAngles()[2]*10^4)/10^4))
   sleep(0.5)
 end
