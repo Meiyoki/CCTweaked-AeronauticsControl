@@ -31,7 +31,7 @@ wirelessNIC.transmit(2000,locs[location],registrationPayload)
 local errorState = false
 
 while not errorState do
-  eventData = os.pullEvent("modem_message")
+  eventData = {os.pullEvent("modem_message")}
   for i,v in ipairs(thrusters) do
     v.setThrottle(eventData[5])
     if(v.getFuel() == 0) then
