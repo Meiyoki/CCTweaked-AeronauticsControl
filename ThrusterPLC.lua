@@ -4,11 +4,11 @@ end)
 local thrusters = {peripheral.find("thruster")}
 local locs =
 {
-  "fore" = 2002,
-  "starboard" = 2003,
-  "aft" = 2004,
-  "port" = 2005,
-  "vertical" = 2006,
+  ["fore"] = 2002,
+  ["starboard"] = 2003,
+  ["aft"] = 2004,
+  ["port"] = 2005,
+  ["vertical"] = 2006,
 }
 local validLoc = false
 local location = ""
